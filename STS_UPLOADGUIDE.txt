@@ -1,0 +1,34 @@
+StS 접속
+Open Perspective-> Git 클릭
+화면 오른쪽 상단 부분이 java EE 에서 Git으로 바뀜.
+
+[주의점]
+sts의 경우 projectExplorer(java EE/java 환경) 과 Git Repositories (Git환경)에서 
+동일한 이름의 프로젝트를 생성해줘야 한다.
+
+projectExplorer의 경우 프로젝트 생성방법을 알고 있으니 
+Git Repositories 프로젝트 생성해서 Git으로 올리는 방법을 알려주겠다.
+
+1) 우선 git hub에 repository를 생성한다.
+2) Git Repositories의 Clone a Git repository 클릭
+3) Git Hub의 https 양식의 주소를 복사하여
+4) Cloine a Git repository의 URI에 링크를 넣고 Authentication항목에
+5) User /Password(token) 입력
+6) Next 버튼 클릭
+7) master (혹은 main)으로 나온다면 정상 
+   - 안나온다면 github setting으로 들어가서 main 혹은 master를 넣어줘야 합니다.
+8) 체크 박스가 되어있다면 NEXT 클릭
+9)Local Destination의 Directory: C:\Users\....\git\프로젝트명 입력
+10) finish 클릭
+----------------------------------------------------------------------------------
+여기까지가 sts와 git의 연동입니다.
+
+git hub에 프로젝트 업로드
+1) package Explorer의 프로젝트 우클릭 team ->share Project클릭
+2) Configure Git Repository -> create클릭  -> ~~~\git\프로젝트명 입력
+3) project 파일 체크 확인하고 finish 클릭
+4) 프로젝트 옆에 ">" 생겼다면 된것이다.
+5) 프로젝트 우클릭 team -> add to index 
+6) team -> commit
+7) commit message 작성 후 
+8)우측 하단의 commit and push 버튼 클릭-> close
