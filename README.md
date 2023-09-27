@@ -34,6 +34,10 @@ select * from MEMBER_REVIEW_FREE_PRODUCT ;
 3) 상품 테이블 (자사 제품 기업 제품 분리 및 실제로 판매하는지 재고는 있는지 확인해야함)
 member ( 기업명 , 기업 전화번호, 업종, id )
 상품 ( * )
+<<product_member>>
+create view product_member as
+select m.Company as 회사, m.MPhone as 전번, m.Sector as 업종, m.MId as 아이디, p.*
+from member m , product p;
 
 4) 공지사항 테이블
 Admin 테이블( 관리자 아이디 )
