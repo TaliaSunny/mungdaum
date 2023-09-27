@@ -5,6 +5,16 @@ Open Perspective-> Git 클릭
 [주의점]
 sts의 경우 projectExplorer(java EE/java 환경) 과 Git Repositories (Git환경)에서 
 동일한 이름의 프로젝트를 생성해줘야 한다.
+--------------------------------------------------------------------------------------------------------
+Create a new repository에서 add a readme file 체크박스 클릭하면 
+This will set "main" as the default branch. Change the default name in your settings.
+으로 뜨시는 경우가 있습니다 .
+
+이 경우 하시기 전에 settings 에서 
+code,planning, and automation
+Repositories의 Repository default branch에 main으로 되어있다면 master로 update하셔서 하시면 
+됩니다.
+--------------------------------------------------------------------------------------------------------
 
 projectExplorer의 경우 프로젝트 생성방법을 알고 있으니 
 Git Repositories 프로젝트 생성해서 Git으로 올리는 방법을 알려주겠다.
