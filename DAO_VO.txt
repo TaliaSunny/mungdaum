@@ -1,0 +1,131 @@
+memberDAO
+
+
+package com.company.mungdaum.member;
+
+//해당 아래 두줄은 어느 테이블이든 공통되게 들어갑니다.
+import org.apache.ibatis.session.SqlSession;
+import com.company.mungdaum.util.SqlSessionFactoryBean;
+
+public class MemberDAO {
+	private SqlSession mybatis; //어떤 table이든 관계없이 공통되게 들어가는 부분 
+	
+	//생성자 (이부분은 어떤 table이든 공통 작업 부분 )!
+	public MemberDAO() {
+		//mybatis 인스턴스 객체 만들기 :CRUD 작업을 Mybatis를 통해서 하겠다.
+		/*
+		 * SqlSessionFactoryBean클래스의 SqlSessionInstance를 호출해서 리턴하겠다. 
+		 */
+		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
+	}
+	
+	//business component logic 
+	//UserDO do로 작성하려고 했으나 do로 작성시 for과 같이 특정 기능을 하는 단어라서
+    
+    public void insertMember(MemberVO vo) {
+        mybatis.insert("MemberDAO.insertUser", vo);
+        mybatis.commit();
+    }
+    
+    public MemberVO login(MemberVO vo) {
+        return mybatis.selectOne("MemberDAO.login", vo);
+    }
+    
+    public void deleteMember(String MId) {
+        mybatis.delete("MemberDAO.deleteUser", MId);
+        mybatis.commit();
+    }
+    
+    public void updateMember(MemberVO vo) {
+        mybatis.update("MemberDAO.updateUser", vo);
+        mybatis.commit();
+    }
+    public void saveLoggedInUser(MemberVO vo) {
+        mybatis.insert("MemberDAO.saveLoggedInUser",vo );
+        mybatis.commit();
+    }
+}
+
+
+=======================================================
+
+memberVO
+
+
+package com.company.mungdaum.member;
+
+import java.util.Date;
+
+public class MemberVO {
+	private String MId;			//회원아이디
+	private String MPw;			//비밀번호 : 영어,숫자,특수문자 포함 20자리
+	private String MName;		//이름
+	private String MAddress;	//주소
+	private int MPost;			//우편번호 5자리 , 구 우편번호 6자리
+	private String MPhone;		//핸드폰 번호 13자리
+	private Date MRdate;		//가입일-시스템 날짜 regdate
+	private String MJumin;		//주민번호 (-)포함 14자리
+	private int MAgree;			//약관동의여부 0-default(true) 1-false
+	private int MLevel;			//고객등급 1:nomal 2:vip 3: vvip
+	private int MBuy; 			//누적구매수 
+	private int MDrop;			//탈퇴여부 0: 존재 1: 탈퇴
+	private String Company; 	//기업명
+	private String KoreanEID;	//사업자 번호 (-) 포함 12 자리 000-00-00000 형식임
+	private String Sector;		//업종
+	
+	public String getMId() {return MId;}
+	public void setMId(String mId) {MId = mId;}
+
+	public String getMPw() {return MPw;}
+	public void setMPw(String mPw) {MPw = mPw;}
+
+	public String getMName() {return MName;}
+	public void setMName(String mName) {MName = mName;}
+
+	public String getMAddress() {return MAddress;}
+	public void setMAddress(String mAddress) {MAddress = mAddress;}
+
+	public int getMPost() {return MPost;}
+	public void setMPost(int mPost) {MPost = mPost;}
+
+	public String getMPhone() {return MPhone;}
+	public void setMPhone(String mPhone) {MPhone = mPhone;}
+
+	public Date getMRdate() {return MRdate;}
+	public void setMRdate(Date mRdate) {MRdate = mRdate;}
+
+	public String getMJumin() {return MJumin;}
+	public void setMJumin(String mJumin) {MJumin = mJumin;}
+
+	public int getMAgree() {return MAgree;}
+	public void setMAgree(int mAgree) {MAgree = mAgree;}
+
+	public int getMLevel() {return MLevel;}
+	public void setMLevel(int mLevel) {MLevel = mLevel;}
+
+	public int getMBuy() {return MBuy;}
+	public void setMBuy(int mBuy) {MBuy = mBuy;}
+
+	public int getMDrop() {return MDrop;}
+	public void setMDrop(int mDrop) {MDrop = mDrop;}
+
+	public String getCompany() {return Company;}
+	public void setCompany(String company) {Company = company;}
+
+	public String getKoreanEID() {return KoreanEID;}
+	public void setKoreanEID(String koreanEID) {KoreanEID = koreanEID;}
+
+	public String getSector() {return Sector;}
+	public void setSector(String sector) {Sector = sector;}
+
+	@Override
+	public String toString() {
+		return "UserDO [MId=" + MId + ", MPw=" + MPw + ", MName=" + MName + ", MAddress=" + MAddress + ", MPost="
+				+ MPost + ", MPhone=" + MPhone + ", MRdate=" + MRdate + ", MJumin=" + MJumin + ", MAgree=" + MAgree
+				+ ", MLevel=" + MLevel + ", MBuy=" + MBuy + ", MDrop=" + MDrop + ", Company=" + Company + ", KoreanEID="
+				+ KoreanEID + ", Sector=" + Sector + "]";
+	}
+
+
+
+}
