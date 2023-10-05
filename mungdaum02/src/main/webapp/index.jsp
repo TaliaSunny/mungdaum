@@ -52,6 +52,7 @@
 					<a
 						href="https://www.coupang.com/vp/products/6662026640?itemId=15294714959&vendorItemId=82515116791&sourceType=srp_product_ads&clickEventId=032b7830-3920-429b-ace7-40a3db0ab598&korePlacement=15&koreSubPlacement=1&q=%EB%85%B8%ED%8A%B8%EB%B6%81&itemsCount=36&searchId=b1265aca2b034b75ac282417f9ee0cad&rank=0&isAddedCart="
 						class="btn btn-primary">아이템 보기</a>
+					<
 				</div>
 			</div>
 		</div>

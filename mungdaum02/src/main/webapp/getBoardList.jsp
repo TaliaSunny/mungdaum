@@ -1,9 +1,6 @@
-<%@page import="com.company.spring_annotation.board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="true"%>    
 <!-- 추가 -->
-<%@ page import="com.company.spring_annotation.board.BoardDO" %>
-<%@ page import="com.company.spring_annotation.board.BoardDAO" %>
 <%@ page import="java.util.List"%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>

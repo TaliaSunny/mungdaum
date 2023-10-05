@@ -1,4 +1,4 @@
-package com.company.view.member;
+package com.company.mungdaum.login;
 
 public class LogoutController {
 

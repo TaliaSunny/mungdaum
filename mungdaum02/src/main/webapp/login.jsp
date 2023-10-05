@@ -20,19 +20,15 @@
                         <form name="loginForm" method="post" action="login.do">
                             <div class="form-group">
                                 <label for="username">아이디</label>
-                                <input type="text" class="form-control" id="id" name="id" required>
+                                <input type="text" class="form-control" id="MId" name="MId" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호</label>
-                                <input type="password" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control" id="MPw" name="MPw"
                                         required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">로그인</button>
                         </form>
-                        <br>
-                        <div>
-                        	<span><a href="getboardList.jsp"></a></span>
-                        </div>
                     </div>
                 </div>
             </div>
