@@ -1,4 +1,4 @@
-package com.com.company.mungdaum.util;
+package com.company.mungdaum.util;
 
 import java.io.Reader;
 
@@ -10,18 +10,18 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class SqlSessionFactoryBean {
 private static SqlSessionFactory sessionFactory = null;
 	
-	static { //Class static ë¸”ë¡ (= ì •ì  ë¸”ë¡) ì–´ë–¤ í´ë˜ìŠ¤ì˜ ê°’ì„ ë”± í•œë²ˆ ì´ˆê¸°í™” ì‹œí‚¬ ë•Œ ì‚¬ìš©í•œë‹¤.
+	static { //Class static ë¸”ë¡ (= ? •?  ë¸”ë¡) ?–´?–¤ ?´?˜?Š¤?˜ ê°’ì„ ?”± ?•œë²? ì´ˆê¸°?™” ?‹œ?‚¬ ?•Œ ?‚¬?š©?•œ?‹¤.
 		try {
 			if(sessionFactory == null) {
 				/*
-				 * MyBatis ì„¤ì •íŒŒì¼ì¸ sql-map-config.xmlë¡œë¶€í„° ì„¤ì •íŒŒì¼ì„ ì½ì–´ë“¤ì´ê¸° ìœ„í•œ
-				 *  ì…ë ¥ìŠ¤íŠ¸ë¦¼(reader)ì„ ìƒì„±í•´ì•¼ í•œë‹¤.
+				 * MyBatis ?„¤? •?ŒŒ?¼?¸ sql-map-config.xmlë¡œë??„° ?„¤? •?ŒŒ?¼?„ ?½?–´?“¤?´ê¸? ?œ„?•œ
+				 *  ?…? ¥?Š¤?Š¸ë¦?(reader)?„ ?ƒ?„±?•´?•¼ ?•œ?‹¤.
 				 */
 				Reader reader = Resources.getResourceAsReader("sql-map-config.xml");
 			
 				/*
-				 * ê·¸ë¦¬ê³  ë‚˜ì„œ ì…ë ¥ ìŠ¤íŠ¸ë¦¼ì„ í†µí•´  sql-map-config.xmlíŒŒì¼ì„ ì½ì–´
-				 * SqlSessionFactory ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
+				 * ê·¸ë¦¬ê³? ?‚˜?„œ ?…? ¥ ?Š¤?Š¸ë¦¼ì„ ?†µ?•´  sql-map-config.xml?ŒŒ?¼?„ ?½?–´
+				 * SqlSessionFactory ê°ì²´ë¥? ?ƒ?„±?•œ?‹¤.
 				 */
 				sessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			}
@@ -31,6 +31,6 @@ private static SqlSessionFactory sessionFactory = null;
 	}
 	public static SqlSession getSqlSessionInstance() {
 		return sessionFactory.openSession();
-		//sessionFactoryë¥¼ ì˜¤í”ˆì„¸ì…˜ìœ¼ë¡œ í•´ì„œ ì´ ê°ì²´ë¥¼ ìš”êµ¬í•˜ëŠ” ê³³ì— ëŒë ¤ì¤€ë‹¤. 
+		//sessionFactoryë¥? ?˜¤?”ˆ?„¸?…˜?œ¼ë¡? ?•´?„œ ?´ ê°ì²´ë¥? ?š”êµ¬í•˜?Š” ê³³ì— ?Œ? ¤ì¤??‹¤. 
 	}
 }

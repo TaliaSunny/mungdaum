@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="QnADAO">
+  	<insert id="insertQnA">
+  		insert into qna(QId,QCategory,QWriter,QPw,QTitle,QContent,QFile,QSecret,QHit)
+  		values(#{QId},#{QCategory},#{QWriter},#{QPw},#{QTitle},#{QContent},#{QFile},#{QSecret},#{QHit})
+  	</insert>
+  	
+  	<select  id="getQnAList" resultType="qna">
+  		select * from qna order by QId desc
+  	</select>
+  	
+  	<select id="getQnA" resultType="qna">
+  		select * from qna where QId=#{QId}
+  	</select>
+  	
+  	<update id="updateQnA">
+  		update qna set QWriter=#{QWriter}, QTitle=#{QTitle}, QContent=#{QContent}, QFile=#{QFile},
+  		QSecret=#{QSecret} where QId=#{QId}
+  	</update>
+  	
+  	<delete id="deleteQnA">
+  		delete from qna where QId=#{QId}
+  	</delete>
+  </mapper>

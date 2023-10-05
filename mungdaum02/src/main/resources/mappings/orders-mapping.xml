@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="OrdersDAO">
+  	<insert id="insertOrders">
+  		insert into orders(ONo,OName,OPhone,OAddress,OPost,OAmount,ORpm,OPayment)
+  		values(#{ONo},#{OName},#{OPhone},#{OAddress},#{OPost},#{OAmount},#{ORpm},#{OPayment})
+  	</insert>
+  	
+  	<select  id="getOrdersList" resultType="orders">
+  		select * from orders order by ONo desc
+  	</select>
+  	
+  	<select id="getOrders" resultType="orders">
+  		select * from orders where ONo=#{ONo}
+  	</select>
+  	
+  	<update id="updateOrders">
+  		update orders set OName=#{OName}, OPhone=#{OPhone}, OPhone=#{OPhone},
+  		OAddress=#{OAddress}, ORpm=#{ORpm}, OPayment=#{OPayment} where ONo=#{ONo}
+  	</update>
+  	
+  	<delete id="deleteOrders">
+  		delete from orders where ONo=#{ONo}
+  	</delete>
+  </mapper>

@@ -1,75 +1,77 @@
 package com.company.mungdaum.member;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MemberVO {
-	private String Mid;       //íšŒì›ì•„ì´ë””
-	private String MPw;       //ë¹„ë°€ë²ˆí˜¸ 
-	private String MName;     //ì´ë¦„
-	private String MAddress;  //ì£¼ì†Œ
-	private int MPost;        //ìš°í¸ë²ˆí˜¸
-	private String MPhone;    //í•¸ë“œí° ë²ˆí˜¸
-	private Date MRdate;      //ê°€ì…ì¼
-	private String MJumin;    // ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸
-	private int MAgree;       //ì•½ê´€ë™ì˜ì—¬ë¶€
-	private int MLevel;       //ê³ ê°ë“±ê¸‰
-	private int MBuy;         //ëˆ„ì êµ¬ë§¤ìˆ˜
-	private int MDrop;        //íƒˆí‡´ì—¬ë¶€
-	private String Company;   //ê¸°ì—…ëª…
-	private String KoreanEID; // ì‚¬ì—…ìë“±ë¡ë²ˆí˜¸	  
-	private String Sector;    //ì—…ì¢…
-	
-	//í•„ë“œë‹¹ getter, setter ë©”ì†Œë“œ
-	public String getMid() {return Mid;}
-	public void setMid(String mid) {Mid = mid;}
-	
+	private String MId;			//È¸¿ø¾ÆÀÌµğ
+	private String MPw;			//ºñ¹Ğ¹øÈ£ : ¿µ¾î,¼ıÀÚ,Æ¯¼ö¹®ÀÚ Æ÷ÇÔ 20ÀÚ¸®
+	private String MName;		//ÀÌ¸§
+	private String MAddress;	//ÁÖ¼Ò
+	private int MPost;			//¿ìÆí¹øÈ£ 5ÀÚ¸® , ±¸ ¿ìÆí¹øÈ£ 6ÀÚ¸®
+	private String MPhone;		//ÇÚµåÆù ¹øÈ£ 13ÀÚ¸®
+	private Date MRdate;		//°¡ÀÔÀÏ-½Ã½ºÅÛ ³¯Â¥ regdate
+	private String MJumin;		//ÁÖ¹Î¹øÈ£ (-)Æ÷ÇÔ 14ÀÚ¸®
+	private int MAgree;			//¾à°üµ¿ÀÇ¿©ºÎ 0-default(true) 1-false
+	private int MLevel;			//°í°´µî±Ş 1:nomal 2:vip 3: vvip
+	private int MBuy; 			//´©Àû±¸¸Å¼ö 
+	private int MDrop;			//Å»Åğ¿©ºÎ 0: Á¸Àç 1: Å»Åğ
+	private String Company; 	//±â¾÷¸í
+	private String KoreanEID;	//»ç¾÷ÀÚ ¹øÈ£ (-) Æ÷ÇÔ 12 ÀÚ¸® 000-00-00000 Çü½ÄÀÓ
+	private String Sector;		//¾÷Á¾
+
+	public String getMId() {return MId;}
+	public void setMId(String mId) {MId = mId;}
+
 	public String getMPw() {return MPw;}
 	public void setMPw(String mPw) {MPw = mPw;}
-	
+
 	public String getMName() {return MName;}
 	public void setMName(String mName) {MName = mName;}
-	
+
 	public String getMAddress() {return MAddress;}
 	public void setMAddress(String mAddress) {MAddress = mAddress;}
-	
+
 	public int getMPost() {return MPost;}
 	public void setMPost(int mPost) {MPost = mPost;}
-	
+
 	public String getMPhone() {return MPhone;}
 	public void setMPhone(String mPhone) {MPhone = mPhone;}
-	
+
 	public Date getMRdate() {return MRdate;}
 	public void setMRdate(Date mRdate) {MRdate = mRdate;}
-	
+
 	public String getMJumin() {return MJumin;}
 	public void setMJumin(String mJumin) {MJumin = mJumin;}
-	
+
 	public int getMAgree() {return MAgree;}
 	public void setMAgree(int mAgree) {MAgree = mAgree;}
-	
+
 	public int getMLevel() {return MLevel;}
 	public void setMLevel(int mLevel) {MLevel = mLevel;}
-	
+
 	public int getMBuy() {return MBuy;}
 	public void setMBuy(int mBuy) {MBuy = mBuy;}
-	
+
 	public int getMDrop() {return MDrop;}
 	public void setMDrop(int mDrop) {MDrop = mDrop;}
-	
+
 	public String getCompany() {return Company;}
 	public void setCompany(String company) {Company = company;}
-	
+
 	public String getKoreanEID() {return KoreanEID;}
 	public void setKoreanEID(String koreanEID) {KoreanEID = koreanEID;}
-	
+
 	public String getSector() {return Sector;}
 	public void setSector(String sector) {Sector = sector;}
-	
+
 	@Override
 	public String toString() {
-		return "BoardDO [Mid=" + Mid + ", MPw=" + MPw + ", MName=" + MName + ", MAddress=" + MAddress + ", MPost="
+		return "UserDO [MId=" + MId + ", MPw=" + MPw + ", MName=" + MName + ", MAddress=" + MAddress + ", MPost="
 				+ MPost + ", MPhone=" + MPhone + ", MRdate=" + MRdate + ", MJumin=" + MJumin + ", MAgree=" + MAgree
 				+ ", MLevel=" + MLevel + ", MBuy=" + MBuy + ", MDrop=" + MDrop + ", Company=" + Company + ", KoreanEID="
 				+ KoreanEID + ", Sector=" + Sector + "]";
 	}
+
+
+
 }

@@ -1,40 +1,44 @@
 package com.company.mungdaum.member;
 
+//ÇØ´ç ¾Æ·¡ µÎÁÙÀº ¾î´À Å×ÀÌºíÀÌµç °øÅëµÇ°Ô µé¾î°©´Ï´Ù.
 import org.apache.ibatis.session.SqlSession;
-
-import com.com.company.mungdaum.util.SqlSessionFactoryBean;
+import com.company.mungdaum.util.SqlSessionFactoryBean;
 
 public class MemberDAO {
-private SqlSession mybatis; //ì–´ë–¤ tableì´ë“  ê´€ê³„ì—†ì´ ê³µí†µë˜ê²Œ ë“¤ì–´ê°€ëŠ” ë¶€ë¶„ 
-	
-	//ìƒì„±ì (ì´ë¶€ë¶„ì€ ì–´ë–¤ tableì´ë“  ê³µí†µ ì‘ì—… ë¶€ë¶„ )!
+	private SqlSession mybatis; //¾î¶² tableÀÌµç °ü°è¾øÀÌ °øÅëµÇ°Ô µé¾î°¡´Â ºÎºĞ 
+
+	//»ı¼ºÀÚ (ÀÌºÎºĞÀº ¾î¶² tableÀÌµç °øÅë ÀÛ¾÷ ºÎºĞ )!
 	public MemberDAO() {
-		//mybatis ì¸ìŠ¤í„´ìŠ¤ ê°ì²´ ë§Œë“¤ê¸° :CRUD ì‘ì—…ì„ Mybatisë¥¼ í†µí•´ì„œ í•˜ê² ë‹¤.
+		//mybatis ÀÎ½ºÅÏ½º °´Ã¼ ¸¸µé±â :CRUD ÀÛ¾÷À» Mybatis¸¦ ÅëÇØ¼­ ÇÏ°Ú´Ù.
 		/*
-		 * SqlSessionFactoryBeaní´ë˜ìŠ¤ì˜ SqlSessionInstanceë¥¼ í˜¸ì¶œí•´ì„œ ë¦¬í„´í•˜ê² ë‹¤. 
+		 * SqlSessionFactoryBeanÅ¬·¡½ºÀÇ SqlSessionInstance¸¦ È£ÃâÇØ¼­ ¸®ÅÏÇÏ°Ú´Ù. 
 		 */
 		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
 	}
-	
+
 	//business component logic 
-	//UserDO doë¡œ ì‘ì„±í•˜ë ¤ê³  í–ˆìœ¼ë‚˜ doë¡œ ì‘ì„±ì‹œ forê³¼ ê°™ì´ íŠ¹ì • ê¸°ëŠ¥ì„ í•˜ëŠ” ë‹¨ì–´ë¼ì„œ
-    
+	//UserDO do·Î ÀÛ¼ºÇÏ·Á°í ÇßÀ¸³ª do·Î ÀÛ¼º½Ã for°ú °°ÀÌ Æ¯Á¤ ±â´ÉÀ» ÇÏ´Â ´Ü¾î¶ó¼­
+
     public void insertMember(MemberVO vo) {
         mybatis.insert("MemberDAO.insertUser", vo);
         mybatis.commit();
     }
-    
+
     public MemberVO login(MemberVO vo) {
         return mybatis.selectOne("MemberDAO.login", vo);
     }
-    
+
     public void deleteMember(String MId) {
         mybatis.delete("MemberDAO.deleteUser", MId);
         mybatis.commit();
     }
-    
+
     public void updateMember(MemberVO vo) {
         mybatis.update("MemberDAO.updateUser", vo);
+        mybatis.commit();
+    }
+    public void saveLoggedInUser(MemberVO vo) {
+        mybatis.insert("MemberDAO.saveLoggedInUser",vo );
         mybatis.commit();
     }
 }

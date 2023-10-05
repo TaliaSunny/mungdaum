@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="ProductDAO">
+  	<insert id="insertProduct">
+  		insert into product(PNo,PName,PPrice,PDiscount,PStock,SellCount,PDetail,PDelivery)
+  		values(#{PNo},#{PName},#{PPrice},#{PDiscount},#{PStock},#{SellCount},#{PDetail},#{PDelivery})
+  	</insert>
+  	
+  	<select  id="getProductList" resultType="product">
+  		select * from product order by PNo desc
+  	</select>
+  	
+  	<select id="getProduct" resultType="product">
+  		select * from product where PNo=#{PNo}
+  	</select>
+  	
+  	<update id="updateProduct">
+  		update product set PName=#{PName}, PPrice=#{PPrice}, PDiscount=#{PDiscount},
+  		PStock=#{PStock}, SellCount=#{SellCount}, PDetail=#{PDetail}, PDelivery=#{PDelivery} where PNo=#{PNo}
+  	</update>
+  	
+  	<delete id="deleteProduct">
+  		delete from product where PNo=#{PNo}
+  	</delete>
+  </mapper>
