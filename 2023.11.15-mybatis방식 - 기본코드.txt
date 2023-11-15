@@ -1,0 +1,1414 @@
+AnimalProfileDAO.java
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.company.mungdaum.dao;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.company.mungdaum.service.FactoryService;
+import com.company.mungdaum.vo.AnimalProfileVO;
+
+public class AnimalProfileDAO {
+	//전체 select
+	public static List<AnimalProfileVO> getTotal(){
+	    try (SqlSession ss = FactoryService.getFactory().openSession()) {
+	        List<AnimalProfileVO> list = ss.selectList("animalprofile.atotal");
+	        return list;
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 또는 예외 처리 로직 추가
+	        return new ArrayList<>();
+	    }
+	}
+	//동물프로필 추가
+	public static int aadd(String animalnum, String animalname, String animaltype, String animalage, String animalgender, String id) {
+		Map<String, String> map = new Hashtable<String, String>();
+		map.put("animalnum", animalnum);
+		map.put("animalname", animalname);
+		map.put("animaltype", animaltype);
+		map.put("animalage", animalage);
+		map.put("animalgender", animalgender);
+		map.put("id", id);
+
+		SqlSession ss = FactoryService.getFactory().openSession(true);
+		int cnt = ss.insert("animalprofile.aadd", map); //mapper의 값과 동일하다.
+		ss.close();
+		return cnt;
+	}
+//삭제
+public static int adelete(String animalnum) {
+	Map<String, String> map = new Hashtable<String, String>();
+	map.put("animalnum", animalnum);
+	SqlSession ss = FactoryService.getFactory().openSession(true);
+	int cnt = ss.insert("animalprofile.adelete", map);
+	ss.close(); 
+	return cnt;
+
+}
+//수정
+public static int aupdate(String animalnum,String animalname,String animaltype,String animalage,String animalgender,String id) {
+	Map<String,String> map = new Hashtable<String, String>();
+	map.put("animalnum",animalnum);
+	map.put("animalname",animalname);
+	map.put("animaltype",animaltype);
+	map.put("animalage",animalage);
+	map.put("animalgender",animalgender);
+	map.put("id",id);
+
+	SqlSession ss = FactoryService.getFactory().openSession(true);
+	int cnt = ss.insert("animalprofile.aupdate", map);
+	ss.close(); 
+	return cnt;
+}
+//id에 따라 구분해서 가져옴
+public List<AnimalProfileVO> getAnimalProfilesByUserId(String userId) {
+	if (userId == null) {
+		// userId가 null인 경우 처리를 수행하거나 예외를 던질 수 있습니다.
+		// 여기에서는 빈 리스트를 반환하는 예제를 보여줍니다.
+		System.out.println("userId is null");
+		return new ArrayList<>(); // 빈 리스트 반환
+	}
+
+	SqlSession ss = FactoryService.getFactory().openSession();
+	try {
+		List<AnimalProfileVO> list = ss.selectList("animalprofile.byuserId", userId);
+		System.out.println(userId + " 1번째");
+		return list;
+	} catch (Exception e) {
+		e.printStackTrace(); // 또는 로그에 예외 정보를 출력하는 방식으로 수정
+		// 예외 처리를 수행하거나 예외를 다시 던지거나 다른 적절한 조치를 취하세요.
+		return new ArrayList<>(); // 빈 리스트 반환
+	} finally {
+		ss.close();
+		System.out.println(userId + " 2번째");
+	}
+}
+}
+======================================================================================================================
+AnimalProfileVO 
+package com.company.mungdaum.vo;
+//animalnum , animalname ,animaltype ,animalage ,animalgender ,id 
+public class AnimalProfileVO {
+	private int animalnum;//동물번호
+	private String animalname;//동물이름
+	private String animaltype;//품종
+	private int animalage;//나이
+	private int animalgender;//성별
+	private String id;//회원 id
+	public int getAnimalnum() {return animalnum;}
+	public void setAnimalnum(int animalnum) {this.animalnum = animalnum;}
+	public String getAnimalname() {return animalname;}
+	public void setAnimalname(String animalname) {this.animalname = animalname;}
+	public String getAnimaltype() {return animaltype;}
+	public void setAnimaltype(String animaltype) {this.animaltype = animaltype;}
+	public int getAnimalage() {return animalage;}
+	public void setAnimalage(int animalage) {this.animalage = animalage;}
+	public int getAnimalgender() {return animalgender;}
+	public void setAnimalgender(int animalgender) {this.animalgender = animalgender;}
+	public String getId() {return id;}
+	public void setId(String id) {this.id = id;}
+	
+}
+=====================================================================================================
+animalprofileMapper.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="animal">
+	<!-- 전체 데이터 : 관리자용 -->
+	<select id="atotal" resultType="animal">
+		SELECT *
+		FROM ANIMALPROFILE
+		ORDER BY
+		animalnum DESC
+	</select>
+	<!-- id에 따라 뿌려주는 데이터 다르게 보여줌 -->
+	<select id="byuserId" resultType="animal">
+		SELECT *
+		FROM ANIMALPROFILE
+		WHERE id= #{userId}
+	</select>
+	<!-- 상세보기 : 관리자용 -->
+	<select id="getBoard" resultType="animal" parameterType="animal">
+		SELECT *
+		FROM ANIMAL
+		WHERE animalnum=#{animalnum}
+	</select>
+	<!-- 수정 -->
+	<update id="aupdate" parameterType="java.util.Map">
+		UPDATE ANIMALPROFILE
+		SET animalnum = #{animalnum}, animalname =
+		#{animalname},animaltype=#{animaltype},animalage=#{animalage},animalgender=#{animalgender},id=#{id}
+		WHERE animalnum=#{animalnum}
+	</update>
+	<!-- 추가 -->
+	<insert id="aadd" parameterType="java.util.Map">
+		INSERT INTO ANIMALPROFILE
+		(animalnum,animalname,animaltype,animalage,animalgender,id)
+		VALUES
+		(#{animalnum},#{animalname},#{animaltype},#{animalage},#{animalgender},#{id})
+	</insert>
+	<!-- 삭제 -->
+	<delete id="adelete" parameterType="java.util.Map">
+		DELETE FROM ANIMALPROFILE
+		WHERE animalnum = #{animalnum}
+	</delete>
+
+</mapper>
+====================================================================================================
+mypage_admin.jsp=> mypage를 admin 입장에서 구현한 코드.
+<해당 코드의 경우 한페이지에서 crud를 걸어놓기 위해 function으로 add,delete,update기능을 다 넣어뒀습니다.>
+<%@page import="com.company.mungdaum.dao.MemberDAO"%>
+<%@page import="com.company.mungdaum.vo.MemberVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.company.mungdaum.vo.AnimalProfileVO"%>
+<%@page import="com.company.mungdaum.dao.AnimalProfileDAO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관리자-회원정보관리 페이지</title>
+</head>
+<body>
+<%
+AnimalProfileDAO animalprofileDAO = new AnimalProfileDAO();
+List<AnimalProfileVO> list = AnimalProfileDAO.getTotal();
+AnimalProfileVO animal = new AnimalProfileVO();
+request.setAttribute("list", list);
+
+MemberDAO memberDAO = new MemberDAO();
+MemberVO memberVO = new MemberVO(); // 이 부분을 추가
+
+List<MemberVO> lio = memberDAO.getMembers(); // 변수 이름과 타입을 수정
+request.setAttribute("lio", lio);
+%>
+<%
+if (list != null && !list.isEmpty()) {	
+%>
+<!-- 페이징이 표시될 영역 -->
+    <div id="paging"></div>
+<header>
+    <h1>고객 정보</h1>
+</header>
+<article>
+    <table>
+        <caption>고객정보관리 테이블</caption>
+        <thead>
+            <tr>
+                <th colspan="6" style="text-align: right;"><input
+                    type="button" value="반려동물추가" id="add_btn" onclick="addFun()" /></th>
+            </tr>
+
+            <tr>
+                <th bgcolor="orange">동물등록 번호</th>
+                <th bgcolor="orange">이름</th>
+                <th bgcolor="orange">종족</th>
+                <th bgcolor="orange">나이</th>
+                <th bgcolor="orange">성별</th>
+                <th bgcolor="orange">고객아이디</th>
+                <th bgcolor="orange">고객이름</th>
+                <th bgcolor="orange">주민번호</th>
+                <th bgcolor="orange">전화번호</th>
+                <th bgcolor="orange">고객나이</th>
+                <th bgcolor="orange">회사</th>
+                <th bgcolor="orange">역할</th>
+               	<th bgcolor="orange">우편번호</th>
+               	<th bgcolor="orange">주소</th>
+                <th bgcolor="orange"></th>
+                <th bgcolor="orange"></th>
+            </tr>
+        </thead>
+        <tbody>
+				<c:forEach var="vo" items="${list}">
+					<c:forEach var="to" items="${lio}">
+						<c:if test="${vo.id eq to.id}">
+							<tr>
+								<td>${vo.animalnum}</td>
+								<td>${vo.animalname}</td>
+								<td>${vo.animaltype}</td>
+								<td>${vo.animalage}</td>
+								<td>${vo.animalgender}</td>
+								<td>${vo.id}</td>
+								<td>${to.name}</td>
+								<td>${to.jumin1}-${to.jumin2}</td>
+								<td>${to.phone}</td>
+								<td>${to.age}</td>
+								<td>${to.eid}</td>
+								<td>${to.role}</td>
+								<td>${to.zipcode}</td>
+								<td>${to.addr1}&nbsp;${to.addr2}&nbsp;${to.addr3}</td>
+								<td width="60"><button
+										onclick="showUpdate('${vo.animalnum}','${vo.animalname}', '${vo.animaltype}', '${vo.animalage}','${vo.animalgender}','${vo.id}')">수정</button></td>
+								<td width="60"><button
+										onclick="location.href='delete.jsp?animalnum=${vo.animalnum}'">삭제</button></td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</tbody>
+    </table>
+</article>
+<div id="add_win" style="display: none;">
+    <header>
+        <h2>추가</h2>
+    </header>
+    <div id="body">
+        <form name="addForm" method="POST" action="add.jsp">
+            <label for="animalnum">동물등록 번호</label>
+            <input type="text" id="animalnum" name="animalnum" />
+            <br />
+
+            <label for="animalname">이름</label>
+            <input type="text" id="animalname" name="animalname" />
+            <br />
+
+            <label for="animaltype">품종</label>
+            <input type="text" id="animaltype" name="animaltype" />
+            <br />
+
+            <label for="animalage">나이</label>
+            <input type="text" id="animalage" name="animalage" />
+            <br />
+
+            <label for="animalgender">성별</label>
+            <input type="text" id="animalgender" name="animalgender" />
+            <!-- 1) CRUD 확인 후 mid를 숨겨서 넣는 방법을 찾아본다. -->
+            <!-- mid 값을 hidden 필드로 추가 -->
+			<label for="id">아이디</label>
+            <input type="text" id="id" name="id"/>
+
+            <br /><br />
+
+            <input type="button" value="추가" id="append_btn" onclick="sendData()" />
+            <input type="button" value="취소" id="cancel_btn" onclick="closeWin()" />
+        </form>
+        <br />
+    </div>
+</div>
+<div id="update_win" style="display: none;">
+    <header>
+        <h2>정보 수정</h2>
+    </header>
+    <div id="body">
+        <form id="updateForm" name="updateForm" method="POST" action="update.jsp">
+            <label for="animalnum">동물등록번호</label>
+            <input type="text" id="anoOfUpdate" name="animalnum" readonly />
+            <br />
+
+            <label for="animalname">이름</label>
+            <input type="text" id="anameOfUpdate" name="animalname" />
+            <br />
+
+            <label for="animaltype">종족</label>
+            <input type="text" id="atypeOfUpdate" name="animaltype" />
+            <br />
+
+            <label for="animalage">나이</label>
+            <input type="text" id="aageOfUpdate" name="animalage" />
+            <br />
+
+            <label for="animalgender">성별</label>
+            <input type="text" id="agenderOfUpdate" name="animalgender" />
+            <br />
+
+            <label for="id">아이디</label>
+            <input type="text" id="midOfUpdate" name="id" readonly="readonly" />
+            <br /><br />
+
+            <input type="button" value="수정" id="update_submit_btn" onclick="sendDataOfUpdate()" />
+            <input type="button" value="취소" id="update_cancel_btn" onclick="closeWinOfUpdate()" />
+        </form>
+        <br />
+    </div>
+</div>
+<% } //if(userId != null 닫는 부분) %>
+<script>
+function addFun() {
+    var addWin = document.getElementById("add_win");
+    addWin.style.display = "block";
+}
+
+function sendData() {
+    console.log("sendData 함수가 호출되었습니다.");
+
+    var animalnum = document.getElementById("animalnum").value;
+    var animalname = document.getElementById("animalname").value;
+    var animaltype = document.getElementById("animaltype").value;
+    var animalage = document.getElementById("animalage").value;
+    var animalgender = document.getElementById("animalgender").value;
+    var id = document.getElementById("id").value;
+
+    document.addForm.submit();
+}
+
+function closeWin() {
+    var addWin = document.getElementById("add_win");
+    addWin.style.display = "none";
+}
+
+function showUpdate(animalnum, animalname, animaltype, animalage, animalgender, id) {
+    var updateForm = document.getElementById('updateForm');
+    updateForm.animalnum.value = animalnum;
+    updateForm.animalname.value = animalname;
+    updateForm.animaltype.value = animaltype;
+    updateForm.animalage.value = animalage;
+    updateForm.animalgender.value = animalgender;
+    updateForm.id.value = id;
+
+    var updateWin = document.getElementById("update_win");
+    updateWin.style.display = "block";
+}
+
+function closeWinOfUpdate() {
+    var updateWin = document.getElementById("update_win");
+    updateWin.style.display = "none";
+}
+
+function sendDataOfUpdate() {
+    var animalname = document.getElementById("anameOfUpdate").value;
+    var animalnum = document.getElementById("anoOfUpdate").value;
+    var id = document.getElementById("midOfUpdate").value;
+    var animaltype = document.getElementById("atypeOfUpdate").value;
+    var animalage = document.getElementById("aageOfUpdate").value;
+    var animalgender = document.getElementById("agenderOfUpdate").value;
+
+    if (animaltype.trim().length < 1 || animalname.trim().length < 1) {
+        alert("빈칸을 채워주세요.");
+        return;
+    }
+
+    document.updateForm.submit();
+}
+</script>
+</body>
+</html>
+---------------------------------------------------------------------------------------------------------------------
+add.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.company.mungdaum.dao.AnimalProfileDAO" %>
+<%@ page import="com.company.mungdaum.vo.AnimalProfileVO" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>추가</title>
+</head>
+<body>
+<%
+request.setCharacterEncoding("UTF-8");
+
+String animalnum = request.getParameter("animalnum");
+String animalname = request.getParameter("animalname");
+String animaltype = request.getParameter("animaltype");
+String animalage = request.getParameter("animalage");
+String animalgender = request.getParameter("animalgender");
+String id = request.getParameter("id");
+
+int cnt = AnimalProfileDAO.aadd(animalnum, animalname, animaltype, animalage, animalgender, id);
+System.out.println("Update result: add " + cnt);
+response.sendRedirect("mypage_admin.jsp");
+%>
+
+</body>
+</html>
+---------------------------------------------------------
+delete.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.company.mungdaum.dao.AnimalProfileDAO"%>
+<%@ page import="com.company.mungdaum.vo.AnimalProfileVO"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String animalnum = request.getParameter("animalnum");
+	int cnt = AnimalProfileDAO.adelete(animalnum); //이 코드에 대해서 간략한 설명을 드리자면 
+/*
+삭제는 animalnum 이라는 고유 번호로 삭제를 하기 때문에 파라미터값으로 animalnum을 받아야 합니다.
+cnt는 이 animalnum 을 adelete 
+
+public static int adelete(String animalnum) {
+	Map<String, String> map = new Hashtable<String, String>();
+	map.put("animalnum", animalnum);
+	SqlSession ss = FactoryService.getFactory().openSession(true);
+	int cnt = ss.insert("animalprofile.adelete", map);
+	ss.close(); 
+	return cnt;
+
+}
+mapper에 있는 sql문장을 처리해서 animalnum 의 값이 '{animalnum}'과 일치하는 값만 삭제시킨다는 의미이다.
+
+DELETE FROM ANIMALPROFILE
+		WHERE animalnum = #{animalnum}
+->다른 부분도 이런식으로 해석하면 됩니다.
+*/
+	System.out.println("Update result 삭제: " + cnt);
+	if (cnt > 0) {
+		// 삭제가 성공한 경우
+		response.sendRedirect("mypage_admin.jsp");
+		System.out.println("Update result 삭제에 성공: " + cnt);
+	} else {
+		// 삭제 실패 시 처리
+		out.println("삭제에 실패했습니다.");
+	}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>삭제</title>
+</head>
+<body>
+
+</body>
+</html>
+---------------------------------------------------------------------
+update.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.company.mungdaum.dao.AnimalProfileDAO"%>
+<%@ page import="com.company.mungdaum.vo.AnimalProfileVO"%>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+
+    String animalnum = request.getParameter("animalnum");
+    String animalname = request.getParameter("animalname");
+    String animaltype = request.getParameter("animaltype");
+    String animalage = request.getParameter("animalage");
+    String animalgender = request.getParameter("animalgender");
+    String id = request.getParameter("id");
+
+int cnt = AnimalProfileDAO.aupdate(animalnum, animalname, animaltype, animalage, animalgender,id);
+System.out.println("나이 :"+animalage);
+System.out.println("확인");
+System.out.println(animalgender);
+System.out.println("Update result: " + cnt);
+    // 클라이언트에 응답
+    response.sendRedirect("mypage_admin.jsp");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>수정</title>
+</head>
+<body>
+
+</body>
+</html>
+======================================================================================================
+
+mypage.jsp -> user입장에서 mypage입니다.
+<%@page import="com.company.mungdaum.vo.AnimalProfileVO"%>
+<%@page import="com.company.mungdaum.dao.AnimalProfileDAO"%>
+<%@page import="com.company.mungdaum.vo.MemberVO"%>
+<%@page import="com.company.mungdaum.dao.MemberDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- JSTL 적용 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>my page_2023.11.09(회원 전용)</title>
+<script>
+    function showUpdate(animalnum, animalname, animaltype, animalage, animalgender, id) {
+        var updateForm = document.getElementById('updateForm');
+        updateForm.anoOfUpdate.value = animalnum;
+        updateForm.anameOfUpdate.value = animalname;
+        updateForm.atypeOfUpdate.value = animaltype;
+        updateForm.aageOfUpdate.value = animalage;
+        updateForm.agenderOfUpdate.value = animalgender;
+        updateForm.midOfUpdate.value = id;
+
+        var updateWin = document.getElementById("update_win");
+        updateWin.style.display = "block";
+    }
+
+    function closeWinOfUpdate() {
+        var updateWin = document.getElementById("update_win");
+        updateWin.style.display = "none";
+    }
+</script>
+</head>
+<body>
+    <%
+    HttpSession userSession = request.getSession();
+    String userId = (String) userSession.getAttribute("userId");
+    String userAddress = (String) userSession.getAttribute("userAddress");
+    String phone = (String) userSession.getAttribute("phone");
+    String userpw = (String) userSession.getAttribute("userpw");
+    String userName = (String) userSession.getAttribute("userName");
+    userSession.setAttribute("userId", userId);
+    userSession.setAttribute("userName", userName);
+    userSession.setAttribute("userAddress", userAddress);
+    userSession.setAttribute("phone", phone);
+    userSession.setAttribute("userpw", userpw);
+    
+    System.out.println(userId + "이거 맞아?");
+    if (userId != null) {
+        MemberDAO memberDAO = new MemberDAO();
+        MemberVO user = new MemberVO();
+        user.setId(userId);
+        user.setAddr1(userAddress);
+        user.setPw(userpw);
+        user.setPhone(phone);
+        MemberVO retrievedUser = memberDAO.getMember(user);
+        System.out.println(userId + "ㄴ1");
+
+        AnimalProfileDAO animalprofileDAO = new AnimalProfileDAO();
+        List<AnimalProfileVO> list = animalprofileDAO.getAnimalProfilesByUserId(userId);
+        System.out.println(list + "ㄴ2");
+        request.setAttribute("list", list);
+    %>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="" class="img-fluid rounded-start" alt="" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= userName%>님</h5>
+                   <!-- <p class="card-text">주소: <%= retrievedUser.getAddr1()%></p>
+                    <p class="card-text">tel) <%= retrievedUser.getPhone()%></p>
+                    <p class="card-text">비번: <%= retrievedUser.getPw()%></p> --> 
+                    
+                    <p class="card-text">주소: <%= userAddress %></p>
+                    <p class="card-text">tel) <%= phone%></p>
+                    <p class="card-text">비번: <%= userpw%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%
+        if (list != null && !list.isEmpty()) {
+    %>
+    <header>
+        <h1>반려동물 테이블</h1>
+    </header>
+    <article>
+        <table>
+            <caption>반려동물을 위한 정보 등록 테이블</caption>
+            <thead>
+                <tr>
+                    <th colspan="6" style="text-align: right;">
+                        <input type="button" value="반려동물추가" id="add_btn" onclick="addFun()" />
+                    </th>
+                </tr>
+
+                <tr>
+                    <th bgcolor="orange">동물등록 번호</th>
+                    <th bgcolor="orange">이름</th>
+                    <th bgcolor="orange">종족</th>
+                    <th bgcolor="orange">나이</th>
+                    <th bgcolor="orange">성별</th>
+                    <th bgcolor="orange"></th>
+                    <th bgcolor="orange"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="vo" items="${list}">
+                    <tr>
+                        <td>${vo.animalnum}</td>
+                        <td>${vo.animalname}</td>
+                        <td>${vo.animaltype}</td>
+                        <td>${vo.animalage}</td>
+                        <td>${vo.animalgender}</td>
+
+                        <td width="60"><button
+                            onclick="showUpdate('${vo.animalnum}','${vo.animalname}', '${vo.animaltype}', '${vo.animalage}','${vo.animalgender}','${vo.id}')">수정</button></td>
+                        <td width="60"><button
+                            onclick="location.href='user/delete_mypage.jsp?animalnum=${vo.animalnum}'">삭제</button></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </article>
+    <div id="add_win" style="display: none;">
+        <header>
+            <h2>반려동물 추가</h2>
+        </header>
+        <div id="body">
+            <form name="addForm" method="POST" action="user/add_mypage.jsp">
+                <label for="animalnum">동물등록 번호</label>
+                <input type="text" id="animalnum" name="animalnum" />
+                <br />
+
+                <label for="animalname">이름</label>
+                <input type="text" id="animalname" name="animalname" />
+                <br />
+
+                <label for="animaltype">품종</label>
+                <input type="text" id="animaltype" name="animaltype" />
+                <br />
+
+                <label for="animalage">나이</label>
+                <input type="text" id="animalage" name="animalage" />
+                <br />
+
+                <label for="animalgender">성별</label>
+                <input type="text" id="animalgender" name="animalgender" />
+                <input type="hidden" id="id" name="id" value="<%= userId %>" />
+                <br /><br />
+
+                <input type="button" value="추가" id="append_btn" onclick="sendData()" />
+                <input type="button" value="취소" id="cancel_btn" onclick="closeWin()" />
+            </form>
+            <br />
+        </div>
+    </div>
+    <div id="update_win" style="display: none;">
+        <header>
+            <h2>정보 수정</h2>
+        </header>
+        <div id="body">
+            <form id="updateForm" name="updateForm" method="POST" action="user/update_mypage.jsp">
+                <label for="animalnum">동물등록번호</label>
+                <input type="text" id="anoOfUpdate" name="animalnum" readonly />
+                <br />
+
+                <label for="animalname">이름</label>
+                <input type="text" id="anameOfUpdate" name="animalname" />
+                <br />
+
+                <label for="animaltype">종족</label>
+                <input type="text" id="atypeOfUpdate" name="animaltype" />
+                <br />
+
+                <label for="animalage">나이</label>
+                <input type="text" id="aageOfUpdate" name="animalage" />
+                <br />
+
+                <label for="animalgender">성별</label>
+                <input type="text" id="agenderOfUpdate" name="animalgender" />
+                <br />
+
+                <label for="id">아이디</label>
+                <input type="text" id="midOfUpdate" name="id" readonly="readonly" />
+                <br /><br />
+
+                <input type="button" value="수정" id="update_submit_btn" onclick="sendDataOfUpdate()" />
+                <input type="button" value="취소" id="update_cancel_btn" onclick="closeWinOfUpdate()" />
+            </form>
+            <br />
+        </div>
+    </div>
+    <%
+    }}
+    %>
+    <script>
+        function addFun() {
+            var addWin = document.getElementById("add_win");
+            addWin.style.display = "block";
+        }
+
+        function sendData() {
+            console.log("sendData 함수가 호출되었습니다.");
+
+            var animalnum = document.getElementById("animalnum").value;
+            var animalname = document.getElementById("animalname").value;
+            var animaltype = document.getElementById("animaltype").value;
+            var animalage = document.getElementById("animalage").value;
+            var animalgender = document.getElementById("animalgender").value;
+            var id = document.getElementById("id").value;
+            document.addForm.submit();
+        }
+
+        function closeWin() {
+            var addWin = document.getElementById("add_win");
+            addWin.style.display = "none";
+        }
+
+        function sendDataOfUpdate() {
+            var animalname = document.getElementById("anameOfUpdate").value;
+            var animalnum = document.getElementById("anoOfUpdate").value;
+            var id = document.getElementById("midOfUpdate").value;
+            var animaltype = document.getElementById("atypeOfUpdate").value;
+            var animalage = document.getElementById("aageOfUpdate").value;
+            var animalgender = document.getElementById("agenderOfUpdate").value;
+
+            if (animaltype.trim().length < 1 || animalname.trim().length < 1) {
+                alert("빈칸을 채워주세요.");
+                return;
+            }
+
+            document.updateForm.submit();
+        }
+    </script>
+</body>
+</html>
+전체적인 코드는 별다를거는 없지만.
+=================================================
+add_mypage.jsp와 같이 mypage_user용 crud는 session으로 로그인한 userId를 보내야 하기 때문에 그 사용방식이 
+기존 add.jsp와 다름을 알아야 합니다.
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.company.mungdaum.dao.AnimalProfileDAO" %>
+<%@ page import="com.company.mungdaum.vo.AnimalProfileVO" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>추가_user용</title>
+</head>
+<body>
+<%
+request.setCharacterEncoding("UTF-8");
+
+String animalnum = request.getParameter("animalnum");
+String animalname = request.getParameter("animalname");
+String animaltype = request.getParameter("animaltype");
+String animalage = request.getParameter("animalage");
+String animalgender = request.getParameter("animalgender");
+String id = (String) session.getAttribute("userId"); // 사용자 세션에서 id를 가져옴 (이 부분!)
+
+int cnt = AnimalProfileDAO.aadd(animalnum, animalname, animaltype, animalage, animalgender, id);
+System.out.println("Update result: aadd " + cnt);
+response.sendRedirect("../mypage.jsp");
+%>
+
+</body>
+</html>
+=============================================================================
+로그인 관련 
+index.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 추가ㅣ-->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>멍다움</title>
+</head>
+<body>
+	<div class="title">
+		<nav id="header">
+			<div class="header_menu">
+				<ul class="header_menu">
+			<!-- 아무래도 이거.. 한국어라서 그렇게 인식하는거 같다는 확신이 든다... admin이하 이렇게 영어로 주면 될듯싶다.. 근데 이거 어이 없는게 왜 관리자는 구분하면서 유저는 구분 못하냐구 이런.. 떼잉... -->
+		
+			<!-- 로그인 하지 않은 상태 -->
+<c:if test="${role == null}">
+    <li><a class="header_menu_item" href="login.jsp">로그인</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="insertUser.jsp">회원가입</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="#">문의사항</a></li>
+     <li><a class="header_menu_item" href=""></a></li>
+</c:if>
+
+<!-- 관리자로 로그인한 상태 -->
+<c:if test="${(not empty role) and role.startsWith('ADMIN')}">
+    <li class="header_menu_item"><span style="color: red">${userName}님</span></li>
+    <li><a class="header_menu_item" href="logout.do">로그아웃</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="admin/mypage_admin.jsp">관리자 페이지</a></li>
+    <li>|</li>
+        <li><a class="header_menu_item" href="admin/mypage_admin1.jsp">관리자 test</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="product.jsp">관리자 상품 페이지</a></li>
+</c:if>
+
+<!-- 일반유저로 로그인한 상태 -->
+<c:if test="${not empty role && role.startsWith('USER')}">
+    <li class="header_menu_item"><span>${userName}님</span></li>
+    <li><a class="header_menu_item" href="logout.do">로그아웃</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="고객센터.jsp">고객센터</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="#">장바구니</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="mypage.jsp">Mypage</a></li>
+    <li>|</li>
+    <li><a class="header_menu_item" href="getBoardList.jsp">자유게시판</a></li>
+    <li>|</li>
+    <li>${phone}</li>
+</c:if>
+
+
+				</ul>
+			</div>
+		</nav>
+
+		<div class="logo_search">
+			<div class="header_logo">
+				<a href="#"><img src="images/멍다움_최종로고수정.png" class="logo"></img></a>
+			</div>
+		</div>
+	</div>
+	<div class="menu">
+		<div id="navbar">
+			<div class="navbar_menu">
+				<ul class="navbar_menu_ul">
+					<li><a href="#"><img class="ham" src="images/ham.png">전체상품</a>
+					</li>
+					<li><a href="#">농산물</a></li>
+					<li><a href="#">수산물</a></li>
+					<li><a href="#">축산물</a></li>
+					<li><a href="#">알뜰쇼핑</a></li>
+				</ul>
+				<div class="search">
+					<input type="text" name="keyword" class="search_text"
+						placeholder="신선한 바른 먹거리" /> <input class="btn_search" type="image"
+						src="images/search.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+==========================================================================================================
+login.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" errorPage="error.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>로그인 페이지</title>
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header text-center">로그인</div>
+					<div class="card-body">
+						<form name="loginForm" method="POST" action="login.do">
+							<div class="form-group">
+								<label for="username">아이디</label> <input type="text"
+									class="form-control" id="id" name="id" required>
+							</div>
+							<div class="form-group">
+								<label for="password">비밀번호</label> <input type="password"
+									class="form-control" id="pw" name="pw" required>
+							</div>
+							<button type="submit" class="btn btn-primary btn-block">로그인</button>
+						</form>
+						<br> <span><a href="getBoardList.jsp"></a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
+====================================================================================
+LoginController.java -> com.company.view.user
+package com.company.view.user;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.company.mungdaum.dao.MemberDAO;
+import com.company.mungdaum.vo.MemberVO;
+
+@Controller
+public class LoginController { // << 어떠한 인퍼페이스도 임플리먼트, 클래스도 상속을 받지 않는 클래스를 POJO 클래스라 한다. 
+
+	@RequestMapping("/login.do")
+	public String login(MemberVO memberVO, MemberDAO memberDAO, HttpSession session) {
+	    MemberVO member = memberDAO.getMember(memberVO);
+
+	    if (member != null) {
+	        System.out.println("로그인 인증 성공!!");
+	        // Set session attributes
+	        session.setAttribute("userName", member.getName());
+	        session.setAttribute("userId", member.getId());
+	        session.setAttribute("userAddress", member.getAddr1());
+	        session.setAttribute("userpw", member.getPw());
+	        session.setAttribute("phone", member.getPhone());
+	        session.setAttribute("role", member.getRole());
+	      
+	        return "redirect:/index.jsp"; // Return the view name without ".jsp"
+	        
+	        //여기서 redirect로 하지 않으면 안넘어감.... 기존이랑 달라지는 부분임.
+	    } else {
+	        System.out.println("2");
+	        return "redirect:/errorPage.jsp"; // You should have an error page view defined
+	    }
+	}
+
+}
+
+=============================================================================================
+LogoutController.java
+package com.company.view.user;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class LogoutController {
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "login.jsp";
+	}
+}
+===================================================================
+MemberDAO.java
+package com.company.mungdaum.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.company.mungdaum.util.JDBCUtil;
+import com.company.mungdaum.util.PasswordEncryptUtil;
+import com.company.mungdaum.vo.MemberVO;
+
+public class MemberDAO {
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
+
+	String pwEncrypt = null; //전역 참조 변수(어디든 끌어다 쓸 수 있다.)
+
+	private final String USER_GET 
+	= "select * from member where id=? AND pw=?";
+
+	public MemberVO getMember(MemberVO memberVO) {
+		MemberVO member = null;            
+
+		try {
+			System.out.println("===> getMember() 메소드 처리됨.");
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(USER_GET);
+
+			pstmt.setString(1, memberVO.getId());
+			pstmt.setString(2, memberVO.getPw());
+			rs = pstmt.executeQuery();
+			member = new MemberVO();
+			if (rs.next()) {
+				member.setName(rs.getString("name"));
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setAge(rs.getInt("age"));
+				member.setJumin1(rs.getString("jumin1"));
+				member.setJumin2(rs.getString("jumin2")); 
+				member.setPhone(rs.getString("phone"));
+				member.setEmail(rs.getString("email"));
+				member.setZipcode(rs.getString("zipcode"));
+				member.setAddr1(rs.getString("addr1"));
+				member.setAddr2(rs.getString("addr2"));
+				member.setAddr3(rs.getString("addr3"));
+				member.setEid(rs.getString("eid"));
+				member.setRole(rs.getString("role"));
+				System.out.println("next1");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+			System.out.println("next2");
+		}
+		return member;
+	}
+
+	//end getUser()=================================================================
+
+	//회원가입 데이터 등록 메소드 구현
+	public void insertMember(MemberVO memberVO) {
+		System.out.println("===> insertUser() 메소드 처리 완료");
+
+		String MEMBER_INSERT = "insert into member values(?,?,?,?,?)";
+
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(MEMBER_INSERT);
+			pstmt.setString(1, memberVO.getId());
+			pstmt.setString(2, memberVO.getPw());
+
+			//입력 받은 패스워드를 암호화 시켜 세 번째 물음표 값으로 지정하자!!
+			String plainText = memberVO.getPw();
+			pwEncrypt = PasswordEncryptUtil.encryptSHA256(plainText);
+			pstmt.setString(3, pwEncrypt);
+			//위 세줄은 중요!
+			pstmt.setString(4, memberVO.getName());
+			pstmt.setString(5, memberVO.getRole());
+			pstmt.executeUpdate();
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+
+	}
+	//========================================================================================
+	public List<MemberVO> getMembers() {
+	    List<MemberVO> members = new ArrayList<>(); // 여러 회원 정보를 저장할 리스트
+
+	    try {
+	        System.out.println("===> getMembers() 메소드 처리됨.");
+	        conn = JDBCUtil.getConnection();
+	        // 수정된 쿼리로 모든 회원 정보를 가져옵니다.
+	        String GET_MEMBERS = "select * from member";
+	        pstmt = conn.prepareStatement(GET_MEMBERS);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            MemberVO member = new MemberVO();
+	            member.setName(rs.getString("name"));
+	            member.setId(rs.getString("id"));
+	            member.setPw(rs.getString("pw"));
+	            member.setAge(rs.getInt("age"));
+	            member.setJumin1(rs.getString("jumin1"));
+	            member.setJumin2(rs.getString("jumin2")); 
+	            member.setPhone(rs.getString("phone"));
+	            member.setEmail(rs.getString("email"));
+	            member.setZipcode(rs.getString("zipcode"));
+	            member.setAddr1(rs.getString("addr1"));
+	            member.setAddr2(rs.getString("addr2"));
+	            member.setAddr3(rs.getString("addr3"));
+	            member.setEid(rs.getString("eid"));
+	            member.setRole(rs.getString("role"));
+	            members.add(member); // 리스트에 회원 정보 추가
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        JDBCUtil.close(rs, pstmt, conn);
+	        System.out.println("next2");
+	    }
+	    return members; // 리스트 반환
+	}
+}
+==================================================================
+MemberVO.java
+package com.company.mungdaum.vo;
+//id, pw, name , age, gender , jumin1, jumin2, phone, email, zipcode , addr1, addr2,addr3, eid,role
+public class MemberVO {
+	private String id;//id 
+	private String pw ;
+	private String name;
+	private int age;
+	private String jumin1;
+	private String jumin2;
+	private String phone;
+	private String email;
+	private String zipcode;
+	private String addr1;
+	private String addr2;
+	private String addr3;
+	private String eid;
+	private String role;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getJumin1() {
+		return jumin1;
+	}
+	public void setJumin1(String jumin1) {
+		this.jumin1 = jumin1;
+	}
+	public String getJumin2() {
+		return jumin2;
+	}
+	public void setJumin2(String jumin2) {
+		this.jumin2 = jumin2;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+	public String getAddr3() {
+		return addr3;
+	}
+	public void setAddr3(String addr3) {
+		this.addr3 = addr3;
+	}
+	public String getEid() {
+		return eid;
+	}
+	public void setEid(String eid) {
+		this.eid = eid;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	
+}
+======================================================================================
+mybatis-config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="animal"
+			type="com.company.mungdaum.vo.AnimalProfileVO" />
+		<typeAlias alias="product"
+			type="com.company.mungdaum.vo.ProductVO" />
+		<!-- <typeAlias alias="qna" type="com.company.mungdaum.vo.QnaVO" /> <typeAlias 
+			alias="notice" type="com.company.mungdaum.vo.NoticeVO" /> <typeAlias alias="comment" 
+			type="com.company.mungdaum.vo.CommentVO" /> <typeAlias alias="review" type="com.company.mungdaum.vo.ReviewVO" 
+			/> <typeAlias alias="coupon" type="com.company.mungdaum.vo.CouponVO" /> <typeAlias 
+			alias="cart" type="com.company.mungdaum.vo.CartVO" /> <typeAlias alias="orders" 
+			type="com.company.mungdaum.vo.OrdersVO" /> -->
+	</typeAliases>
+	<environments default="development">
+		<!-- environments: 환경 property : 키 / 값 -->
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="org.h2.Driver" /> <!-- 키 : 값 -->
+				<property name="url" value="jdbc:h2:tcp://localhost/~/test" />
+				<property name="username" value="sa" />
+				<property name="password" value="" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper
+			resource="com/company/mungdaum/sqlmapper/animalprofileMapper.xml" />
+		<mapper
+			resource="com/company/mungdaum/sqlmapper/productMapper.xml" />
+		<!-- <mapper resource="com/company/mungdaum/sqlmapper/qnaMapper.xml" /> 
+			<mapper resource="com/company/mungdaum/sqlmapper/noticeMapper.xml" /> <mapper 
+			resource="com/company/mungdaum/sqlmapper/commentMapper.xml" /> <mapper resource="com/company/mungdaum/sqlmapper/reviewMapper.xml" 
+			/> <mapper resource="com/company/mungdaum/sqlmapper/cartMapper.xml" /> <mapper 
+			resource="com/company/mungdaum/sqlmapper/couponMapper.xml" /> <mapper resource="com/company/mungdaum/sqlmapper/ordersMapper.xml" 
+			/> -->
+	</mappers>
+</configuration>  
+=====================================================================================================
+FactoryService.java
+package com.company.mungdaum.service;
+
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class FactoryService {
+	private static SqlSessionFactory factory;
+	
+	static {
+		try {
+			/* 먼저 Mybatis 설정 파일인 config.xml 파일로부터 설정 정보를 읽어들이기
+			 * 위한 입력 스트림을  생성한다.
+			 */
+			Reader reader 
+				= Resources.getResourceAsReader("com/company/mungdaum/config/mybatis-config.xml");
+			
+			/*
+			 * 그러고 나서 입력 스트림을 통해 config.xml 파일을 읽어
+			 * SqlSessionFactory 객체를 생성한다.
+			 */
+			factory = new SqlSessionFactoryBuilder().build(reader);
+			reader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static SqlSessionFactory getFactory() {
+		return factory;
+	}
+}
+============================================================================================================
+JDBCUtil.java
+package com.company.mungdaum.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+
+public class JDBCUtil {
+	static final String driver = "org.h2.Driver";
+	static final String url = "jdbc:h2:tcp://localhost/~/test";
+	
+	public static Connection getConnection() throws Exception {	// ���⼭ ���ܰ� �߻��ϸ� �̰� ����� BoardDAO, UserDAO������ �����ڴ�
+		try {
+			Class.forName(driver);
+			Connection con = DriverManager.getConnection(url, "sa", "");
+			return con;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		return null;
+	}
+	
+	public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+		if(rs != null) {
+			try {
+				if (!rs.isClosed())	rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				rs = null;
+			}
+		}
+		
+		if(pstmt != null) {
+			try {
+				if (!pstmt.isClosed()) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				pstmt = null;				
+			}
+		}
+		
+		if(conn != null) {
+			try {
+				if (!conn.isClosed()) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				conn = null;
+			}
+		}
+	}
+	
+	public static void close(PreparedStatement pstmt, Connection conn) {
+				
+		if(pstmt != null) {
+			try {
+				if (!pstmt.isClosed()) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				pstmt = null;				
+			}
+		}
+		
+		if(conn != null) {
+			try {
+				if (!conn.isClosed()) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				conn = null;
+			}
+		}
+	}
+}
+==============================================================================================
+PasswordEncryptUtil.java
+package com.company.mungdaum.util;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class PasswordEncryptUtil {
+	public static String encryptSHA256(String plainText) throws
+	NoSuchAlgorithmException, UnsupportedEncodingException {
+	String sha256 = "";						// 빈 문자열, null
+	
+	try {
+		MessageDigest mdSHA256 = MessageDigest.getInstance("SHA-256");
+		mdSHA256.update(plainText.getBytes("UTF-8"));
+		
+		byte[] sha256Hash = mdSHA256.digest();
+		StringBuffer hexSHA256hash = new StringBuffer();
+		
+		for(byte b: sha256Hash) {
+			String hexString = String.format("%02x", b);
+			hexSHA256hash.append(hexString);				
+		}
+		sha256 = hexSHA256hash.toString();
+	}catch(NoSuchAlgorithmException | UnsupportedEncodingException e) {e.printStackTrace();
+	}		// catch는 여러개 사용가능하다
+	//System.out.println(sha256);
+	
+	return sha256;	
+	}		
+}
