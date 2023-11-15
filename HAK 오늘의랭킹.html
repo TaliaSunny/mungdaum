@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>오늘의 랭킹</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <!-- Google Font 신버전 -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <!--0-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- <link href="css/style3.css" rel="stylesheet" />--> <!-- 회사소개 css 넣을시 꺠짐 보류-->
+    <!--0-->
+
+    <!-- 빅슬라이드 시작 -->
+    <!-- bxslider 실행에 필요한 jquery, bxslider css, js  mainindex페이지에서 사용안하는중 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- 부트5 슬라이드 케설린 끝 css-->
+
+    <!-- jquery 1.12.1 토글 드롭 클릭시 나타남 css 시작-->
+    <!--폰트 아이콘 css링크-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--폰트 아이콘 css링크 끝-->
+    <style>
+        /* <!--스몰 사이드바 시작css-->*/
+        /*1*/
+        .menu ::before {
+            font-family: 'Material Icons';
+            font-size: 1.5em;
+            float: left;
+            clear: left;
+        }
+
+        .menu label::before {
+            content: '\e5d2';
+        }
+
+        .menu li:nth-child(1) a::before {
+            content: '\f02e';
+        }
+
+        .menu li:nth-child(2) a::before {
+            content: '\e8d6';
+        }
+
+        .menu li:nth-child(3) a::before {
+            content: '\e88a';
+        }
+
+        .menu li:nth-child(4) a::before {
+            content: '\e8cc';
+        }
+
+        .menu li:nth-child(5) a::before {
+            content: '\e87d';
+        }
+
+        .menu li:nth-child(6) a::before {
+            content: '\e8b8';
+        }
+
+        /*2*/
+        #expand-menu {
+            /* 체크박스 폼 요소 감춤 */
+            display: none;
+        }
+
+        #expand-menu:checked~ul {
+            /* 체크박스 체크되었으면 메뉴 목록 표시 - 반응형 표시용 */
+            display: block;
+            height: auto;
+        }
+
+        /*3*/
+        .menu {
+            display: block;
+            width: 200px;
+            background-color: rgb(193, 193, 193);
+            color: #fff;
+            border-radius: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            /* 반응형 애니메이션용 */
+            transition: all 0.5s ease;
+            /* 반응형 애니메이션 */
+            opacity: 1;
+            position: relative;
+            z-index: 2;
+            position: fixed;
+            margin-left: 1360px;
+            margin-top: 155px;
+
+
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a,
+        .menu>label {
+            display: block;
+            height: 44px;
+            padding: 8px;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /*4*/
+        .menu a:hover {
+            color: #000;
+        }
+
+        .menu ul li:hover,
+        .menu>label:hover {
+            /*메뉴 아이콘 틀*/
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+        }
+
+        .menu div {
+            line-height: 1.5;
+            font-size: 1em;
+            font-family: 'Noto Sans KR';
+            padding: 0 0 0 50px;
+            /* 아이콘과 텍스트 사이 여백 */
+        }
+
+        /*5*/
+        @media screen {
+
+            /* and (max-width:1023px) 삭제한 코드  추가시 1023에서 반응형 모바일로 변경됨 메뉴바가  작아짐  */
+            .menu {
+                /* 1단계 */
+                width: 60px;
+            }
+        }
+
+        @media screen and (max-width:560px) {
+            .menu #expand-menu:not(:checked)~ul {
+                /* 2단계 */
+                display: none;
+            }
+        }
+
+        /*6*/
+        /*z-index 사이드바하고 메인 페이지 겹치게 할때 텍스트 안보임 해결책 [position: fixed;] 원래는 [position: absolute;] 속성 값이었음 /* 절대 위치로 텍스트 고정 **/
+        .menu div {
+            position: fixed;
+            /* 절대 위치로 텍스트 고정 */
+            left: 50px;
+            line-height: 1.5;
+            font-size: 1em;
+            font-family: 'Noto Sans KR';
+            padding: 0 0 0 20px;
+            /* 패딩 20p로 축소 */
+            margin-left: 1230px;
+        }
+
+        /*7*/
+        .menu #expand-menu:not(:checked)~ul {
+            /* 데스크탑 화면에서도 메뉴를 접었더 펼칠 수 있음 display: none; */
+            display: none;
+        }
+
+        @media screen and (max-width:560px) {
+            .menu #expand-menu:not(:checked)~ul {
+                display: none;
+            }
+        }
+
+        /*추가 css*/
+        .item {
+            font-weight: bold;
+            font-size: small;
+        }
+
+        /* <!--스몰 사이드바 끝css-->*/
+        /* 광고창 스타일 css 시작 */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 300px;
+            height: 550px;
+            padding: 0;
+            border: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            text-align: center;
+            border-radius: 30px;
+        }
+
+        /* 닫기 버튼 스타일 */
+        .close {
+            position: absolute;
+            top: 2px;
+            right: 47%;
+            cursor: pointer;
+            z-index: 1;
+
+        }
+
+        /* "자세히 보기" 링크 스타일 */
+        .detail-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: gray;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* 슬라이드 이미지 스타일 */
+        .carousel-inner img {
+            width: 100%;
+            position: relative;
+        }
+
+        /*광고창*/
+        /*광고창 스타일 css 끝 */
+        /* 툴팁 스타일링 */
+        .data-toggle-tooltip::before {
+            content: attr(title);
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            width: 78px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            top: 100%;
+            /* 툴팁을 아래로 나타나게 설정 */
+            left: 50%;
+            /* 가로 위치 중앙으로 */
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+
+        .data-toggle-tooltip:hover::before {
+            opacity: 1;
+        }
+
+
+
+        /*툴팁끝 css*/
+        #toggle {
+            width: 100%;
+
+            background: #ccc;
+        }
+
+        /*<!--상단 이벤트 스몰 슬라이드 버튼클릭시 드롭 css 중앙정렬 z-index 시작-->*/
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 버튼의 스타일을 지정합니다. */
+        #text {
+            padding: 2px 15px;
+            /* 버튼 내부의 여백을 조절합니다. */
+            position: relative;
+            z-index: 2;
+        }
+
+        /*<!--상단 이벤트 스몰 슬라이드 버튼클릭시 드롭 css 중앙정렬 z-index 끝-->*/
+    </style>
+</head>
+<!-- jquery 1.12.1 토글 드롭 클릭시 나타남 css js 시작-->
+<script>
+
+    $(document).ready(function () {
+        var timeout;
+        $("#toggle").mouseenter(function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                $("#go1").show("drop");
+            }, 500); // 0.5 초 뒤에 버튼 나타내기
+        });
+
+        $("#toggle").mouseleave(function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                $("#go1").show("drop");
+            }, 60000);
+            $("#go1").hide("drop");
+        });
+        $(document).ready(function () {
+            $("#go1").click(function () {
+                $("#toggle").toggle("drop");
+                $("#kim").animate({
+                    opacity: 1
+                }, 1000); // 1초 동안 opacity를 1로 변경하여 나타냅니다.
+            });
+
+            $("#kim").click(function () {
+                $("#toggle").toggle("drop");
+                $("#kim").animate({
+                    opacity: 0 //opacity를 0 으로 설정하여 사라지게 한다.
+                });
+            });
+        });
+
+
+    });
+</script>
+<!-- jquery 1.12.1 토글 드롭 클릭시 나타남 css js 끝-->
+
+<body>
+    <!--  여기 부터 메인해더 시작-->
+    <!-- 광고창 시작 -->
+    <div class="popup" id="adPopup">
+        <span class="close" id="closePopup">&times;</span>
+        <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/e84d9098e61aea884bc9ffbe4e5f7763.jpg"
+                        alt="슬라이드 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/11ab841921c86c5442ac692579b06ce0.jpg"
+                        alt="슬라이드 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/3b6d80798577c23c627811612998aae7.jpg"
+                        alt="슬라이드 3">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">이전</span>
+            </a>
+            <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">다음</span>
+            </a>
+        </div>
+        <h2 style="margin-top: 20px; font-size: x-large;">특별한 혜택 알림</h2>
+        <p style="font-size: small;">당신을 위한 특별한 혜택이 준비되었습니다.</p>
+        <p style="font-size: small;">♥ 지금 확인하세요 ♥</p>
+        <a href="목적지_URL" class="detail-link">자세히 보기</a>
+    </div>
+    <!--광고창 끝-->
+
+    <!--헤더 세션 이벤트 스몰 슬라이드 시작-->
+    <div id="toggle" style="margin-top: -5px; position: relative; z-index: 2;">
+        <button id="go1" style="position: absolute; z-index: 1; margin-left: 200px;display: 
+            none;font-size: xx-small;" class="btn btn-info">Ⅹ 잠시 닫아두기</button>
+
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/6b858d24bbe3a4a8a3f3ba79bfa806fc.jpg"
+                        class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/349b6a885cdcdedf9db3730cea219e0d.jpg"
+                        class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/6b858d24bbe3a4a8a3f3ba79bfa806fc.jpg"
+                        class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span id="toshow1" class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <!--여기다가 하이든 하면 슬라이드 클릭안됨-->
+                <span id="toshow2" class="carousel-control-next-icon" aria-hidden="true"></span>
+                <!--여기다가 하이든 하면 슬라이드 버튼 사라지고 클릭툄-->
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <!-- 헤더 세션 이벤트 스몰 슬라이드 끝-->
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__language">
+                <img src="img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div>
+            <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header class="header" style="z-index: 2;">
+        <!--<div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li>Free Shipping for all Order of $99</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img style="width: 135px;" src="img/멍로고.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="hero__categories" style="display: none;"> <!--추가함 카테 고리 숨김 -->
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span style="margin-left: -10px;">카테고리</span>
+                        </div>
+                        <ul>
+                            <li><a href="#" style="font-size: small;">식품</a></li>
+                            <li><a href="#" style="font-size: small;">장난감</a></li>
+                            <li><a href="#" style="font-size: small;">건강관리 용품</a></li>
+                            <li><a href="#" style="font-size: small;">패션 & 악세사리</a></li>
+                            <li><a href="#" style="font-size: small;">미용 & IOT</a></li>
+                            <li><a href="#" style="font-size: small;">자유게시판</a></li>
+                            <li><a href="#" style="font-size: small;">고객센터</a></li>
+                            <li><a href="#" style="font-size: small;">병원찾기</a></li>
+                            <li><a href="#" style="font-size: small;">일기장</a></li>
+                            <li><a href="#" style="font-size: small;">내 프로필</a></li>
+                            <li><a href="#" style="font-size: small;">사진첩</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <!--서치 소스 시작-->
+                    <div class="hero__search">
+                        <div class="hero__search__form" style="display: none;">
+                            <form action="#">
+                                <div class="hero__search__categories" style="font-size: small; margin-top: 5px;">
+                                    전체
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="찾고 싶은 상품을 검색해보세요!">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                            <div>
+
+                            </div>
+
+                            <!--서치 소스 끝-->
+                        </div>
+                        <!--여기다가 아이템머니 소스 넣어야함-->
+                        <div class="header__cart" style="margin-left: -20px;">
+                            <ul>
+                                <li><a href="요즘 검색창 페이지.html"><i class="fa fa-search"></i> <span>n</span></a></li>
+                                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                                <li>
+                                    <div class="header__top__right__auth">
+                                        <a href="#"><i class="fa fa-user"></i> Login</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="header__cart__price">item: <span>$150.00</span></div>
+                        </div>
+                    </div>
+
+                </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-0">
+                    <!--카테고리소스 삭제 -->
+                </div>
+                <div class="col-lg-12">
+                    <!-- 메뉴 헤더 시작-->
+                    <nav class="header__menu">
+                        <ul>
+                            <li>
+                                <a href="#">식품</a>
+                                <ul class="header__menu__dropdown">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img
+                                                src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/d16afad4bba5a0997275fd0ffe366872.jpg">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>건식사료</b></a>
+                                                <a href="./shoping-cart.html"><b>습식사료</b></a>
+                                                <a href="./checkout.html"><b>우유/분유</b></a>
+                                                <a href="./blog-details.html"><b>베스트사료</b></a>
+                                                <a href="./blog-details.html"><b>고양이사료</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 60px; font-size: 13px; color: rgb(168, 167, 167);">건식사료
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">패션</a>
+                                <ul class="header__menu__dropdown2">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img style="width: 220px; margin-left: 20px;"
+                                                src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/b564bfbc99fc51e1e732f3fc5d17f0ec.jpg">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>레인코트</b></a>
+                                                <a href="./shoping-cart.html"><b>신발/양말</b></a>
+                                                <a href="./checkout.html"><b>외투</b></a>
+                                                <a href="./blog-details.html"><b>원피스/올인원</b></a>
+                                                <a href="./blog-details.html"><b>코스튬</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 75px; font-size: 13px; color: rgb(168, 167, 167);">멋진 퍼피
+                                            꾸미기</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="#">장난감</a>
+                                <ul class="header__menu__dropdown3">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img style="width: 230px; margin-left: 20px;"
+                                                src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/a2eda75b781d420e1c741d847bd0ea61.jpg">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>공/원반</b></a>
+                                                <a href="./shoping-cart.html"><b>인형</b></a>
+                                                <a href="./checkout.html"><b>터널/큐브</b></a>
+                                                <a href="./blog-details.html"><b>훈련용품</b></a>
+                                                <a href="./blog-details.html"><b>캣타워</b></a>
+                                                <a href="./blog-details.html"><b>고양이스크래치</b></a>
+                                                <a href="./blog-details.html"><b>고양이장나감</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 50px; font-size: 13px; color: rgb(168, 167, 167);">퍼피들의
+                                            즐거움을 위하여~♥</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="#">미용용품</a>
+                                <ul class="header__menu__dropdown4">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img style="width: 150px; margin-left: 20px;"
+                                                src="https://puppydog.co.kr/web/upload/appfiles/0zdpAngaKBFnlCcCqpCU4A/8d77c5e1591b609d47ce535ba60dbb94.jpg">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>드라이기</b></a>
+                                                <a href="./shoping-cart.html"><b>발톱관리용품</b></a>
+                                                <a href="./checkout.html"><b>브러시</b></a>
+                                                <a href="./blog-details.html"><b>샤워기/타월</b></a>
+                                                <a href="./blog-details.html"><b>샴푸/린스</b></a>
+                                                <a href="./blog-details.html"><b>이발기/가위</b></a>
+                                                <a href="./blog-details.html"><b>기타미용용품</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 60px; font-size: 13px; color: rgb(168, 167, 167);">천연샴푸바
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="#">건강관리/IOT</a>
+                                <ul class="header__menu__dropdown5">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img style="width: 220px; margin-left: 20px;"
+                                                src="https://shopping-phinf.pstatic.net/main_3059952/30599522618.20221102121926.jpg?type=f640">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>iot</b></a>
+                                                <a href="./shop-details.html"><b>구강위생용품</b></a>
+                                                <a href="./shop-details.html"><b>넥카라</b></a>
+                                                <a href="./shop-details.html"><b>눈/귀 위생용품</b></a>
+                                                <a href="./shop-details.html"><b>해충방지용품</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 50px; font-size: 13px; color: rgb(168, 167, 167);">퍼피들의
+                                            건강을 위하여~♥</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="#">공지/게시판</a>
+                                <ul class="header__menu__dropdown6">
+                                    <li>
+                                        <div class="menu-item">
+                                            <img style="width: 220px; margin-left: 10px;"
+                                                src="https://cdn.pixabay.com/photo/2019/09/21/18/58/dog-4494554_1280.jpg">
+                                            <div class="vertical-text">
+                                                <a href="./shop-details.html"><b>공지사항</b></a>
+                                                <a href="./shop-details.html"><b>자유게시판</b></a>
+                                                <a href="./shop-details.html"><b>와글게시판</b></a>
+                                                <a href="./shop-details.html"><b>Q & A</b></a>
+                                                <a href="./shop-details.html"><b>이벤트</b></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p style="margin-left: 60px; font-size: 13px; color: rgb(168, 167, 167);">무엇이든
+                                            물어보살~*</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="./contact.html">리뷰</a></li>
+                            <li><a href="./contact.html">병원찾기</a></li>
+                            <li><a href="./contact.html">고객센터</a></li>
+                            <li><a href="./contact.html">구독</a></li>
+                            <li><a href="./contact.html">와글프로필</a></li>
+                        </ul>
+                        
+                    </nav>
+                    <!-- 메뉴 헤더 시작끝-->
+                    <!-- 메뉴 고객센터 폰요소들 시작 [삭제함]-->
+
+                    <!--메뉴 고객센터 폰요소들 끝 [삭제함]-->
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!--여기부터-->
+    <!-- Page Content-->
+
+    <!--상단 큰이미지-->
+    <img  style="margin-top: -50px; height: 500px;" src="https://www.lge.co.kr/kr/images/care-solutions/20231031_TROMM_HOME_PC_1920x640_v1.jpg" class="img-fluid" alt="...">
+    <div style="margin-top: -300px; text-align: center;">
+    <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">BEST RANK</h1>
+    </div>
+    <div class="container px-4 px-lg-5" style="margin-top: 300px;">
+        <!-- Heading Row-->
+        
+
+        <!-- Content Row-->
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style=" border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">1</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/3536b56fed5241563863635a3d6e685c.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>닥터도비 스킨앤코트 7.5kg(피부사료)</b></h5><br>
+                        <hr>
+                        <p class="card-text">78,000원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%);  width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">2</b>
+                        </div>
+                    </div>
+                    <div class="card-cnt"></div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/2cdc442be12b505a09e2a09dfb159d3c.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>닥터도비 힙앤조인트 7.5kg(관절사료)</b></h5><br>
+                        <hr>
+                        <p class="card-text">59,400원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">3</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202306/ff9a7f2947228ebeb14e68caeb243381.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>
+                                아미오 건강한 덴탈껌 100g(관절건강) x 10개 (1박스)</b></h5>
+                        <hr>
+                        <p class="card-text">64,200원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--2-->
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">4</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202305/fc06587c764f2d9fc1fe64577b53789a.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>D11 애견 패딩조끼만 네이비</b></h5><br>
+                        <hr>
+                        <p class="card-text">34,000원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">5</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202305/93f6e38226c4a6895dc9c64a62dbafdf.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>D11 애견 패딩조끼만 핑크</b></h5><br>
+                        <hr>
+                        <p class="card-text">34,000원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">6</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/a904f98d686acca0e6266c8bd2b43400.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>아이누 어덜트 그레인프리 INU 1.5kg 오리</b></h5>
+                        <hr>
+                        <p class="card-text">19,200원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--3-->
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">7</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/95f0050ce11d9edaff236c2922827b08.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>동인에스엠티 도기쉐프 오리날개 1kg 대용량</b></h5><br>
+                        <hr>
+                        <p class="card-text">23,900원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">8</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/1d1c755237736a3eca1b50e22267b75e.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>
+                                프레셔스펫 도기쉐프 수제간식 600g 돼지 귀 슬라이스</b></h5><br>
+                        <hr>
+                        <p class="card-text">20,600원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">9</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/b502caae09d42d3e2e3a7fd05c30aa43.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>프레셔스펫 도기쉐프 수제간식 1kg 오리 목뼈</b></h5><br>
+                        <hr>
+                        <p class="card-text">20,200원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--4-->
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">10</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/3536b56fed5241563863635a3d6e685c.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>닥터도비 스킨앤코트 7.5kg(피부사료)</b></h5><br>
+                        <hr>
+                        <p class="card-text">78,000원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">11</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/2cdc442be12b505a09e2a09dfb159d3c.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>닥터도비 힙앤조인트 7.5kg(관절사료)</b></h5><br>
+                        <hr>
+                        <p class="card-text">59,400원</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100"
+                    style="border-radius: 25px; border: none; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                    <div class="card-cnt">
+                        <div
+                            style="border-radius: 50%; border: 2px solid hsl(85, 59%, 53%); width: 50px; text-align: center; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                            <b style="font-size: 30px;">12</b>
+                        </div>
+                    </div>
+                    <br><img style="border-radius: 5px;"
+                        src="https://puppydog.co.kr/web/product/medium/202311/a904f98d686acca0e6266c8bd2b43400.jpg">
+                    <br>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>아이누 어덜트 그레인프리 INU 1.5kg 오리</b></h5>
+                        <hr>
+                        <p class="card-text">19,200원</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row gx-4 gx-lg-5 align-items-center my-5">
+
+            <div class="col-lg-12"><br><img class="img-fluid"
+                    src="https://cdnimg.dogpang.com/catpang/data/event/cate_banner/web/CATEBANNER_002002_202205181802131356495643.jpg"
+                    style="width: 100%; max-width: none; height: auto; border-radius: 40px; margin-top:-25px;"></div>
+        </div>
+
+    </div>
+
+    <!-- Footer-->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad" style="margin-top: 150px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/멍로고.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: 010.9139.1001</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- JS 부트5 슬라이드 케설린 시작-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- JS 부트5 슬라이드 케설린 끝-->
+    <!--JS 부트스크랩트 4.4.1 광고창 스크립트 로직 시작-->
+    <script>
+        // 광고창 열기
+        $(document).ready(function () {
+            var popup = document.getElementById("adPopup");
+            var closeBtn = document.getElementById("closePopup");
+
+            popup.style.display = "block";
+
+            closeBtn.addEventListener("click", function () {
+                popup.style.display = "none";
+            });
+        });
+    </script>
+    <!--JS 부트스크랩트 4.4.1 광고창 스크립트 로직 끝-->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts3.js"></script>
+    <script src="js/scripts.js"></script>
+    <!--0-->
+
+</body>
+
+</html>
